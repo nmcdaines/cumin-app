@@ -12,4 +12,10 @@ Rails.application.routes.draw do
     post '/api/auth/refresh' => 'api_guard/tokens#create'
     delete '/api/auth/change_password' => 'api_guard/passwords#destroy'
   end
+
+  scope '/api' do
+    resources :recipes, only: [:index, :show]
+  end
+
+  get '/recipes', to: 'recipes#index'
 end
