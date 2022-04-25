@@ -3,4 +3,6 @@ class User < ApplicationRecord
   has_many :refresh_tokens, dependent: :delete_all
 
   has_secure_password
+
+  has_many :recipes
 end
