@@ -10,9 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_25_010104) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_25_023256) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.string "name"
+    t.float "quantity"
+    t.string "unit"
+    t.string "barcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+  end
+
+  create_table "recipe_steps", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.integer "index"
+    t.string "details"
+    t.json "timer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recipes_on_user_id"
+  end
 
   create_table "refresh_tokens", force: :cascade do |t|
     t.string "token"
@@ -33,5 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_010104) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "recipe_ingredients", "recipes"
+  add_foreign_key "recipe_steps", "recipes"
+  add_foreign_key "recipes", "users"
   add_foreign_key "refresh_tokens", "users"
 end
