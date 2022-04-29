@@ -10,7 +10,7 @@ export type CustomAxiosError = AxiosError & {
   config: CustomAxiosRequestConfig;
 };
 
-export const baseUrl: "/api";
+export const baseUrl = "/api";
 
 // TODO: need to create a layer to to use custom storage provider
 

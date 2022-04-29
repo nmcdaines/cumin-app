@@ -8,7 +8,7 @@ interface IAuthRequest {
 }
 
 export const auth = {
-  login: (body: IAuthRequest) =>
+  login: (body: any) =>
     axios.post(`${baseUrl}/auth/login`, body),
   register: (body: IAuthRequest) =>
     axios.post(`${baseUrl}/auth/register`, body),
@@ -25,5 +25,6 @@ export const auth = {
 
 export const recipe = {
   all: () => axios.get(`${baseUrl}/recipes`),
-  get: (id: number) => axios.get(`${baseUrl}/recipes/${id}`),
+  get: (id: number | string) => axios.get(`${baseUrl}/recipes/${id}`),
 }
+
