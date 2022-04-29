@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   api_guard_routes for: 'users', path: 'auth'
 
-
   api_guard_scope 'users' do
     post '/api/auth/register' => 'api_guard/registration#create'
     # delete '/api/auth/delete' => 'api_guard/registration#destroy'
@@ -14,8 +13,7 @@ Rails.application.routes.draw do
   end
 
   scope '/api' do
-    resources :recipes, only: [:index, :show]
+    get '/auth/me', to: 'me#index'
+    resources :recipes, only: [:index, :show, :create, :update]
   end
-
-  get '/recipes', to: 'recipes#index'
 end
