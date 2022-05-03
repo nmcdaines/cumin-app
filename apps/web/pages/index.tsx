@@ -1,10 +1,77 @@
+import React, { useState } from "react";
+import Link from "next/link";
 import { Button } from "ui";
+import { useQuery } from "react-query";
+// import { auth } from "data";
+import { auth, recipe } from "data";
+
+import { useLogin } from "../context/AuthContext";
+
+import { DefaultLayout } from "web/layouts/default-layout";
+
+import { RecipeCard } from "web/components/recipe-card";
+import { RecipeModal } from "web/components/recipe-modal";
+
+import {
+  BriefcaseIcon,
+  CalendarIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  CurrencyDollarIcon,
+  LinkIcon,
+  LocationMarkerIcon,
+  PencilIcon,
+  PlusIcon,
+} from "@heroicons/react/solid";
 
 export default function Web() {
+  const { isLoading, error, data } = useQuery("recipes", async () => {
+    const { data }: any = await recipe.all();
+    return data;
+  });
+  
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(undefined);
+
+  console.log(data);
+
+  const item: any = data?.find((item: any) => item.id === selected) || {};
+  console.log(item);
+
+
+  const { login, logout } = useLogin();
+
   return (
-    <div>
-      <h1>Web</h1>
-      <Button />
-    </div>
+    <DefaultLayout>
+      <button
+        onClick={() =>
+          login({ email: "user3@apiguard.com", password: "api_password" })
+        }
+      >
+        Login
+      </button>
+
+      {selected && (
+        <RecipeModal isOpen={open} setOpen={setOpen} recipe={item} />
+      )}
+
+      <div className="px-4 flex justify-center">
+        <div className="w-full max-w-5xl grid grid-cols-2 xs:gird-cols-3 sm:grid-cols-4 md:gird-cols-4 xl:grid-cols-5 gap-4">
+          {data?.map((item: any) => (
+            <RecipeCard
+              key={`recipe-card-${item.id}`}
+              id={item.id}
+              title={item.title}
+              author={item.author}
+              duration={item.duration}
+              onClick={() => {
+                setSelected(item.id);
+                setOpen(true);
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </DefaultLayout>
   );
 }
