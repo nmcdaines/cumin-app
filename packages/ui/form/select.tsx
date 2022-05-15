@@ -7,6 +7,49 @@ interface IValue {
   value: any;
 }
 
+
+interface ISelectOptionBase extends IValue {
+  children(props: {
+    selected?: boolean;
+    active?: boolean;
+    disabled?: boolean;
+    value?: T;
+  }): React.ReactNode;
+}
+
+
+interface SelectProps<T extends IValue = {value: any, label: any}> {
+  value: T["value"];
+  onChange: (value: T["value"]) => any;
+  options: T[];
+  itemComponent?: (props: T) => JSX.Element;
+  selectedComponent?: React.FC<T>;
+};
+
+
+/*
+
+<SelectComponent
+  selectedComponent={
+    {(value, label) => {
+      <SelectButton>
+        { label }
+      </SelectButton>
+    }}
+  }
+  optionComponent={
+    (selected, active, disabled) => ({
+      <div>
+        { selected ? `` : ``}
+      </div>
+    })
+  }
+/>
+
+*/
+
+
+
 function SelectButton<T>({ label }: T & IValue & any) {
   return (
     <SelectButtonBase>
@@ -15,9 +58,17 @@ function SelectButton<T>({ label }: T & IValue & any) {
   );
 }
 
+
 function SelectButtonBase({ children }: any) {
   return (
-    <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    <Listbox.Button
+      className={classNames(
+        "relative bg-white border border-gray-300 rounded-md shadow-sm cursor-default",
+        "w-full pl-3 pr-10 py-2",
+        "sm:text-sm text-left",
+        "focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500",
+      )}
+    >
       <span className="flex items-center">
         {children}
       </span>
@@ -27,6 +78,7 @@ function SelectButtonBase({ children }: any) {
     </Listbox.Button>
   );
 }
+
 
 function SelectOption({ value, label }: any) {
   return (
@@ -60,9 +112,6 @@ function SelectOption({ value, label }: any) {
   );
 }
 
-interface ISelectOptionBase extends IValue {
-  children(props: { selected?: boolean, active?: boolean, disabled?: boolean }): React.ReactNode;
-}
 
 function SelectOptionBase({ children, value }: ISelectOptionBase) {
   return (
@@ -80,14 +129,6 @@ function SelectOptionBase({ children, value }: ISelectOptionBase) {
   );
 }
 
-interface SelectProps<T extends IValue = {value: any, label: any}> {
-  value: T["value"];
-  onChange: (value: T["value"]) => any;
-  options: T[];
-  itemComponent?: (props: T) => JSX.Element;
-  selectedComponent?: React.FC<T>;
-};
-
 
 const Select = <T extends IValue = {value: any, label: any}>({
   value: selectedValue,
@@ -98,7 +139,6 @@ const Select = <T extends IValue = {value: any, label: any}>({
 }: SelectProps<T>) => {
 const SelectComponent = selectedComponent || SelectButton;
   const ItemComponent = itemComponent || SelectOption;
-
   const selected = options.find(({ value }) => value === selectedValue);
 
   return (
@@ -113,20 +153,30 @@ const SelectComponent = selectedComponent || SelectButton;
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-10 mt-1 w-48 bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-              {options.map((option: any) => (
+            <Listbox.Options
+              className={classNames(
+                "absolute z-10 mt-1 w-48 bg-white shadow-lg max-h-56 rounded-md py-1 overflow-auto  ",
+                "text-base sm:text-sm",
+                "ring-black ring-opacity-5 ring-1 focus:outline-none"
+              )}
+            >
+              {/* {options.map((option: any) => (
                 <ItemComponent key={option.value} {...option} />
-              ))}
+              ))} */}
+
+              {/* {children} */}
             </Listbox.Options>
           </Transition>
         </>
       )}
     </Listbox>
   );
+
+
 }
 
 export {
   Select,
   SelectOptionBase,
   SelectOption,
-}
+};

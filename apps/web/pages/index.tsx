@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { Button } from "ui";
+import { Button, TopNavbar } from "ui";
 import { useQuery } from "react-query";
 // import { auth } from "data";
 import { auth, recipe } from "data";
@@ -33,16 +33,14 @@ export default function Web() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(undefined);
 
-  console.log(data);
 
   const item: any = data?.find((item: any) => item.id === selected) || {};
-  console.log(item);
-
 
   const { login, logout } = useLogin();
 
   return (
     <DefaultLayout>
+      <TopNavbar />
       <button
         onClick={() =>
           login({ email: "user3@apiguard.com", password: "api_password" })

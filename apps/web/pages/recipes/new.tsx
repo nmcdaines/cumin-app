@@ -101,11 +101,11 @@ export default function NewRecipe() {
                   <div className="grid gap-x-2 grid-cols-5 mb-4">
                     <div>
                       <Select
-                        selected={0}
+                        value={"1"}
                         options={[
-                          { label: "g" },
-                          { label: "ml" },
-                          { label: "kg" }
+                          { value: "1", label: "g" },
+                          { value: "2", label: "ml" },
+                          { value: "3", label: "kg" }
                         ]}
                       />
                     </div>
