@@ -15,13 +15,16 @@
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "classnames": "^2.3.1",
+    "data": "*",
     "formik": "^2.2.9",
     "next": "12.0.8",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-query": "^3.38.0",
-    "ui": "*",
-    "data": "*"
+    "slate": "^0.78.0",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.79.0",
+    "ui": "*"
   },
   "devDependencies": {
     "@types/node": "^17.0.12",
