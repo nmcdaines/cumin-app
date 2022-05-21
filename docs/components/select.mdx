@@ -1,0 +1,42 @@
+# Select
+
+## Inspiration
+* https://github.com/JedWatson/react-select
+* https://github.com/bvaughn/react-virtualized-select
+* https://dev.to/janjakubnanista/a-peculiar-journey-to-a-generic-react-component-using-typescript-3cm8
+
+# Option Object
+The option object can now contain any value, this is because we have 2 methods
+that allow us to derive an id and value
+
+* `idFromValue: (value: T) => string | number`
+* `labelFromValue: (value: T) => string | JSX.Element`
+
+# value
+A value should be an instance of `T`
+
+
+# Select Component
+```jsx
+function Control ({ selectedValue, ...otherProps }) {
+
+}
+
+function Option ({ active, disabled, option, ...otherProps }) {
+
+}
+
+<SelectedComponent
+  value={/* IOption */}
+  options={/* IOption[] */}
+  onChange={/* IOption || undefined */}
+  components={{
+    Control,
+    Option,
+  }}
+/>
+```
+
+## Props
+`onChange`: is called with the complete selected item (not just the value)
+

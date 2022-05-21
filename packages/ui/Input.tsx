@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import * as React from "react";
 
 export const Input = ({
@@ -7,6 +8,7 @@ export const Input = ({
   autoComplete,
   required,
   placeholder,
+  className,
   ...props
 }: any) => {
   return (
@@ -17,7 +19,10 @@ export const Input = ({
       autoComplete={autoComplete}
       required={required}
       placeholder={placeholder}
-      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+      className={classNames(
+        className,
+        "focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+      )}
       {...props}
     />
   );
@@ -31,9 +36,9 @@ export const Label = ({ text, name }: any) => {
 
 export const TextField = ({ label, ...inputProps }: any) => {
   return (
-    <>
+    <div >
       <Label text={label} />
-      <Input {...inputProps} />
-    </>
+      <Input {...inputProps} className="mt-1"/>
+    </div>
   );
 };
