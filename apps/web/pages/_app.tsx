@@ -4,17 +4,22 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 import { AuthProvider } from "web/context/AuthContext";
 
 const queryClient = new QueryClient();
 
 function App({ Component, pageProps }: AppProps) {
+  
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </QueryClientProvider>
+    <DndProvider backend={HTML5Backend}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </QueryClientProvider>
+    </DndProvider>
   );
 }
 
