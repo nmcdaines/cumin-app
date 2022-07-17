@@ -1,12 +1,16 @@
 import * as React from "react";
 import cx from "classnames";
 import Link from "next/link";
-const Button = ({ children, onClick, className, noPadding }: any) => {
+const Button = ({ children, onClick, className, noPadding, error }: any) => {
+  const isPrimary = !error;
+
   return (
     <button
       className={cx(
         `inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md`,
-        `text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`,
+        `text-white focus:outline-none focus:ring-2 focus:ring-offset-2 `,
+        isPrimary && "bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500",
+        error && "bg-red-600 hover:bg-red-700 focus:ring-red-500",
         className
       )}
       onClick={onClick}
