@@ -20,7 +20,7 @@ export const auth = {
 
     return response;
   },
-  me: () => {},
+  me: () => axios.get(`${baseUrl}/auth/me`),
 }
 
 export const recipe = {

@@ -90,7 +90,8 @@ const RecipeModal: React.FC<IRecipeModal> = ({ isOpen, setOpen, recipe }) => {
           >
             Add to planner
           </LinkButton>
-          <LinkButton href={`/recipes/${recipe.id}`}>Let's cook</LinkButton>
+          <LinkButton className="mr-2" href={`/recipes/${recipe.id}`}>Let's cook</LinkButton>
+          <LinkButton href={`/recipes/${recipe.id}/cook`}>Open</LinkButton>
         </div>
       </div>
     </Modal>

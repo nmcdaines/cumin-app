@@ -3,6 +3,20 @@ import classNames from "classnames";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
+
+function Logo() {
+  return (
+    <div className="flex">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4788/4788121.png"
+        alt=""
+        className="h-8 w-8"
+      />
+      <span className="ml-3 my-auto text-gray-100 font-thin text-3xl tracking-wider">CUMIN</span>
+    </div>
+  );
+}
+
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -27,7 +41,7 @@ function TopBarImageIcon({ src, alt }: any) {
 }
 
 function TopBarButton({ iconComponent, srText, onClick }: any) {
-  return ( 
+  return (
     <button
       type="button"
       className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -57,7 +71,7 @@ function TopBarMenu({ iconComponent, srText, user, menuItems }: ITopBarMenuProps
       <div>
         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">{srText}</span>
-          { iconComponent } 
+          { iconComponent }
         </Menu.Button>
       </div>
       <Transition
@@ -88,9 +102,24 @@ function TopBarMenu({ iconComponent, srText, user, menuItems }: ITopBarMenuProps
         </Menu.Items>
       </Transition>
     </Menu>
-  ); 
+  );
 }
 
+function ActiveTopLink({ name}: { name: string }) {
+  return (
+    <a href="#" className="bg-gray-900 text-white  px-3 py-2 rounded-md text-sm font-medium">
+      { name }
+    </a>
+  );
+}
+
+function TopLink({ name}: { name: string }) {
+  return (
+    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white  px-3 py-2 rounded-md text-sm font-medium">
+      { name}
+    </a>
+  );
+}
 
 function TopNavbar () {
 
@@ -103,15 +132,19 @@ function TopNavbar () {
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   {/* TODO: replace with custom logo */}
-                  <img
-                    className="h-8 w-8"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
-                  />
+
+                  <Logo />
+
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {/* TODO: navigation */}
+
+                    <ActiveTopLink name="Home" />
+                    <TopLink name="Recipes" />
+                    <TopLink name="Meal Planner" />
+                    <TopLink name="Pantry" />
+                    <TopLink name="Shopping" />
                   </div>
                 </div>
               </div>

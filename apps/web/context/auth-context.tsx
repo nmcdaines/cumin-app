@@ -8,7 +8,7 @@ const LoginContext = createContext<any>(null);
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
   const [isLoading, setLoading] = useState<boolean>(true);
-  
+
   // TODO: define user object state
   const [user, setUser] = useState<any>(undefined);
 
@@ -19,7 +19,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     if (accessToken) {
       try {
         const response: any = await auth.me();
-        userFromSession = undefined;
+        userFromSession = response?.data;
       } catch (error) {
         console.log(error);
       }

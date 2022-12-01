@@ -8,7 +8,7 @@ import { useLogin } from "../../context/AuthContext";
 import { DefaultLayout } from "web/layouts/default-layout";
 import { RecipeModal } from "web/components/recipe-modal";
 import { RecipeCard } from "web/components/recipe-card";
-import { Button, FormSection, FormSectionDivider } from "ui";
+import { Button, FormSection, FormSectionDivider, TopNavbar } from "ui";
 
 export default function Web() {
   const router = useRouter();
@@ -38,8 +38,11 @@ export default function Web() {
 
   return (
     <DefaultLayout>
-      <div>
-        <button onClick={() => router.back()}>Back</button>
+      <TopNavbar />
+      <div className="py-8 px-4 flex justify-center">
+        <div className="w-full max-w-5xl">
+          <Button onClick={() => router.back()}>Back</Button>
+        </div>
       </div>
 
       {/* <div>{JSON.stringify(data || {})}</div> */}

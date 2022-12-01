@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 // import { auth } from "data";
 import { auth, recipe } from "data";
 
-import { useLogin } from "../context/AuthContext";
+import { useLogin, useAuth } from "../context/auth-context";
 
 import { DefaultLayout } from "web/layouts/default-layout";
 
@@ -29,32 +29,37 @@ export default function Web() {
     const { data }: any = await recipe.all();
     return data;
   });
-  
+
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(undefined);
 
 
   const item: any = data?.find((item: any) => item.id === selected) || {};
 
+  const { user } = useAuth();
+
   const { login, logout } = useLogin();
 
   return (
     <DefaultLayout>
       <TopNavbar />
-      <button
-        onClick={() =>
-          login({ email: "user3@apiguard.com", password: "api_password" })
-        }
-      >
-        Login
-      </button>
+
+      {!user &&(
+        <button
+          onClick={() =>
+            login({ email: "user3@apiguard.com", password: "api_password" })
+          }
+        >
+          Login
+        </button>
+      )}
 
       {selected && (
         <RecipeModal isOpen={open} setOpen={setOpen} recipe={item} />
       )}
 
-      <div className="px-4 flex justify-center">
-        <div className="w-full max-w-5xl grid grid-cols-2 xs:gird-cols-3 sm:grid-cols-4 md:gird-cols-4 xl:grid-cols-5 gap-4">
+      <div className="flex justify-center mt-8">
+        <div className="w-full max-w-7xl grid grid-cols-2 xs:gird-cols-3 sm:grid-cols-4 md:gird-cols-4 xl:grid-cols-5 gap-4 px-4 sm:px-6 lg:px-8">
           {data?.map((item: any) => (
             <RecipeCard
               key={`recipe-card-${item.id}`}
